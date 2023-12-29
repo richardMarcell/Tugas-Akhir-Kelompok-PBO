@@ -1,15 +1,22 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+
+/**
+ *
+ * @author ACER
+ */
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
+public class PenitipanHelm {
 
-
-public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<Customer> customers = new ArrayList<>();
+        List<TransaksiPenitipan> listTransaksiPenitipan = new ArrayList<>();
 
-        TransaksiPenitipan transaksi = new TransaksiPenitipan();
-        DetailTagihanPenitipan detailTagihan = new DetailTagihanPenitipan();
         Loker loker = new Loker();
 
         while (true) {
@@ -17,13 +24,12 @@ public class Main {
             System.out.println("Aplikasi Penitipan Helm");
             System.out.println("=============================");
             System.out.println("Pilih menu berikut: ");
-            System.out.println("1. Tambah Customer"); //Done
-            System.out.println("2. Cek Ketersediaan Loker"); //Done
+            System.out.println("1. Tambah Customer");
+            System.out.println("2. Cek Ketersediaan Loker");
             System.out.println("3. Tambah Transaksi");
             System.out.println("4. Cetak Tagihan");
-            System.out.println("5. Pengambilan Helm");
-            System.out.println("6. Tampilkan Daftar Customer"); //Done
-            System.out.println("7. Keluar"); //Done
+            System.out.println("5. Tampilkan Daftar Customer");
+            System.out.println("6. Keluar");
             System.out.println("=============================");
             System.out.print("Pilihan Anda: ");
             int choice = scanner.nextInt();
@@ -46,6 +52,7 @@ public class Main {
                 loker.checkLoker();
                     break;
                 case 3:
+                    TransaksiPenitipan transaksi = new TransaksiPenitipan();
                     if (customers.isEmpty()) {
                         System.out.println("Belum ada customer terdaftar.");
                     } else {
@@ -56,25 +63,56 @@ public class Main {
                         for (int i = 0; i < customers.size(); i++) {
                             System.out.println((i + 1) + ". " + customers.get(i).nama);
                         }
+
                         System.out.print("Pilihan Anda: ");
                         int customerChoice = scanner.nextInt();
                         if (customerChoice > 0 && customerChoice <= customers.size()) {
                             Customer selectedCustomer = customers.get(customerChoice - 1);
+                            listTransaksiPenitipan.add(transaksi);
                             transaksi.laporMasuk(nomorTransaksi, selectedCustomer.nama);
+                            loker.simpanHelm(nomorTransaksi);
                         } else {
                             System.out.println("Pilihan tidak valid.");
                         }
                     }
                     break;
                 case 4:
-                    detailTagihan.hitungTagihan(transaksi.waktu_masuk, transaksi.waktu_keluar);
-                    System.out.println("Durasi penitipan: " + detailTagihan.durasi_penitipan + " Detik");
-                    System.out.println("Tagihan: Rp" + detailTagihan.tagihan);
+                    boolean pilihanTersedia = false;
+                    if (!listTransaksiPenitipan.isEmpty()) {
+
+                        System.out.println("Pilih Transaksi:");
+                        for (int i = 0; i < listTransaksiPenitipan.size(); i++) {
+                            if(listTransaksiPenitipan.get(i).is_done == false){
+                                pilihanTersedia = true;
+                                System.out.println((i + 1) + ". " + listTransaksiPenitipan.get(i).no_transaksi + " - " + listTransaksiPenitipan.get(i).nama );
+                            } else{
+                                System.out.println("Belum ada Transaksi Aktif.");
+                                break;
+                            }
+
+                    }} else {
+                            System.out.println("Transaksi Kosong.");
+                            break;
+                        }
+                        if(pilihanTersedia == true){
+                        System.out.print("Pilihan Anda: ");
+                        int transaksiPenitipanChoice = scanner.nextInt();
+                        if (transaksiPenitipanChoice > 0 && transaksiPenitipanChoice <= listTransaksiPenitipan.size()) {
+                            TransaksiPenitipan selectedTransaksiPenitipan = listTransaksiPenitipan.get(transaksiPenitipanChoice - 1);
+                            loker.ambilHelm(selectedTransaksiPenitipan.no_transaksi);
+                            System.out.println("Tagihan");
+                            System.out.println("=============================");
+                            System.out.println("Nama : " + selectedTransaksiPenitipan.nama);
+                            System.out.println("Nomor Transaksi : " + selectedTransaksiPenitipan.no_transaksi);
+                            selectedTransaksiPenitipan.laporKeluar();
+//                            listTransaksiPenitipan.remove(selectedTransaksiPenitipan);
+
+                        } else {
+                            System.out.println("Pilihan tidak valid.");
+                        }
+                    }
                     break;
                 case 5:
-                    transaksi.laporKeluar();
-                    break;
-                case 6:
                     if (customers.isEmpty()) {
                         System.out.println("Belum ada customer terdaftar.");
                     } else {
@@ -84,7 +122,7 @@ public class Main {
                         }
                     }
                     break;
-                case 7:
+                case 6:
                     System.out.println("Terima kasih!");
                     return;
                 default:
