@@ -47,10 +47,14 @@ public class PenitipanHelm {
                     customer.register(idCustomer, namaCustomer, nomorHP);
                     customers.add(customer);
                     System.out.println("Berhasil Menambah Customer dengan nama " + namaCustomer);
+                    System.out.println();
+                    System.out.println();
                     break;
                 case 2:
                 loker.checkLoker();
-                    break;
+                System.out.println();
+                System.out.println();
+                break;
                 case 3:
                     TransaksiPenitipan transaksi = new TransaksiPenitipan();
                     if (customers.isEmpty()) {
@@ -75,6 +79,8 @@ public class PenitipanHelm {
                             System.out.println("Pilihan tidak valid.");
                         }
                     }
+                    System.out.println();
+                    System.out.println();
                     break;
                 case 4:
                     boolean pilihanTersedia = false;
@@ -87,11 +93,15 @@ public class PenitipanHelm {
                                 System.out.println((i + 1) + ". " + listTransaksiPenitipan.get(i).no_transaksi + " - " + listTransaksiPenitipan.get(i).nama );
                             } else{
                                 System.out.println("Belum ada Transaksi Aktif.");
+                                System.out.println();
+                                System.out.println();
                                 break;
                             }
 
                     }} else {
                             System.out.println("Transaksi Kosong.");
+                            System.out.println();
+                            System.out.println();
                             break;
                         }
                         if(pilihanTersedia == true){
@@ -111,6 +121,8 @@ public class PenitipanHelm {
                             System.out.println("Pilihan tidak valid.");
                         }
                     }
+                    System.out.println();
+                    System.out.println();
                     break;
                 case 5:
                     if (customers.isEmpty()) {
@@ -121,6 +133,8 @@ public class PenitipanHelm {
                             System.out.println(c);
                         }
                     }
+                    System.out.println();
+                    System.out.println();
                     break;
                 case 6:
                     System.out.println("Terima kasih!");
