@@ -9,6 +9,7 @@
  */
 import java.util.List;
 import java.util.Scanner;
+import java.io.Console;
 import java.util.ArrayList;
 public class PenitipanHelm {
 
@@ -16,8 +17,38 @@ public class PenitipanHelm {
         Scanner scanner = new Scanner(System.in);
         List<Customer> customers = new ArrayList<>();
         List<TransaksiPenitipan> listTransaksiPenitipan = new ArrayList<>();
+        Admin admin = new Admin();
 
         Loker loker = new Loker();
+        Console console = System.console();
+        if (console == null) {
+            System.out.println("Console tidak tersedia!");
+            System.exit(1);
+        }
+
+        boolean isAuthenticated = false;
+
+        while (!isAuthenticated) {
+            System.out.println("=============================");
+            System.out.println("-----------=Login=-----------");
+            System.out.println("=============================");
+            System.out.print("Username: ");
+            String usernameInput = scanner.nextLine();
+            String passwordInput = new String(console.readPassword("Password: "));
+
+
+            isAuthenticated = admin.login(usernameInput, passwordInput);
+            if (!isAuthenticated) {
+                System.out.println("Kredential Yang Anda Masukkan Tidak Valid");
+                System.out.println();
+                System.out.println();
+                System.out.println();
+            }
+        }
+        System.out.println("Anda Berhasil Melakukan Autentikasi");
+        System.out.println();
+        System.out.println();
+        System.out.println();
 
         while (true) {
             System.out.println("=============================");
@@ -33,6 +64,9 @@ public class PenitipanHelm {
             System.out.println("=============================");
             System.out.print("Pilihan Anda: ");
             int choice = scanner.nextInt();
+            System.out.println();
+            System.out.println();
+            System.out.println();
 
             switch (choice) {
                 case 1:
@@ -74,7 +108,7 @@ public class PenitipanHelm {
                             Customer selectedCustomer = customers.get(customerChoice - 1);
                             listTransaksiPenitipan.add(transaksi);
                             transaksi.laporMasuk(nomorTransaksi, selectedCustomer.nama);
-                            loker.simpanHelm(nomorTransaksi);
+                            loker.saveHelmet(nomorTransaksi);
                         } else {
                             System.out.println("Pilihan tidak valid.");
                         }
@@ -109,7 +143,7 @@ public class PenitipanHelm {
                         int transaksiPenitipanChoice = scanner.nextInt();
                         if (transaksiPenitipanChoice > 0 && transaksiPenitipanChoice <= listTransaksiPenitipan.size()) {
                             TransaksiPenitipan selectedTransaksiPenitipan = listTransaksiPenitipan.get(transaksiPenitipanChoice - 1);
-                            loker.ambilHelm(selectedTransaksiPenitipan.no_transaksi);
+                            loker.takeHelmet(selectedTransaksiPenitipan.no_transaksi);
                             System.out.println("Tagihan");
                             System.out.println("=============================");
                             System.out.println("Nama : " + selectedTransaksiPenitipan.nama);

@@ -31,7 +31,7 @@ class Loker {
         System.out.println("\n");
     }
 
-    void simpanHelm(String no_transaksi){
+    void saveHelmet(String no_transaksi){
         for (int i = 0; i < 5; i++) {
             if("Tersedia".equals(loker[i])) {
                 loker[i] = no_transaksi;
@@ -44,7 +44,7 @@ class Loker {
         }
     }
 
-    void ambilHelm(String no_transaksi){
+    void takeHelmet(String no_transaksi){
         for (int i = 0; i < 5; i++) {
             if(no_transaksi.equals(loker[i])) {
                 loker[i] = "Tersedia";
