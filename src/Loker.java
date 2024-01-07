@@ -12,7 +12,7 @@ class Loker {
 
     String[] loker = {"Tersedia", "Tersedia", "Tersedia", "Tersedia", "Tersedia"};
 
-    public void checkLoker()
+    public void cekLoker()
     {
         System.out.println("\n");
         System.out.println("Daftar Loker");
@@ -31,7 +31,7 @@ class Loker {
         System.out.println("\n");
     }
 
-    void saveHelmet(String no_transaksi){
+    void simpanHelm(String no_transaksi){
         for (int i = 0; i < 5; i++) {
             if("Tersedia".equals(loker[i])) {
                 loker[i] = no_transaksi;
@@ -44,7 +44,7 @@ class Loker {
         }
     }
 
-    void takeHelmet(String no_transaksi){
+    void ambilHelm(String no_transaksi){
         for (int i = 0; i < 5; i++) {
             if(no_transaksi.equals(loker[i])) {
                 loker[i] = "Tersedia";

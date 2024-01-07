@@ -13,7 +13,7 @@ class TransaksiPenitipan {
     String no_transaksi;
     LocalDateTime waktu_masuk;
     LocalDateTime waktu_keluar;
-    boolean is_done = false;
+    boolean status_selesai = false;
     DetailTransaksiPenitipan detailTransaksiPenitipan = new DetailTransaksiPenitipan();
 
     void laporMasuk(String no_transaksi, String nama) {
@@ -25,7 +25,7 @@ class TransaksiPenitipan {
 
     void laporKeluar() {
         this.waktu_keluar = LocalDateTime.now();
-        this.is_done = true;
+        this.status_selesai = true;
 
         System.out.println("Waktu masuk : " + waktu_masuk);
         System.out.println("Waktu keluar : " + waktu_keluar);

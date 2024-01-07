@@ -85,7 +85,7 @@ public class PenitipanHelm {
                     System.out.println();
                     break;
                 case 2:
-                loker.checkLoker();
+                loker.cekLoker();
                 System.out.println();
                 System.out.println();
                 break;
@@ -108,7 +108,7 @@ public class PenitipanHelm {
                             Customer selectedCustomer = customers.get(customerChoice - 1);
                             listTransaksiPenitipan.add(transaksi);
                             transaksi.laporMasuk(nomorTransaksi, selectedCustomer.nama);
-                            loker.saveHelmet(nomorTransaksi);
+                            loker.simpanHelm(nomorTransaksi);
                         } else {
                             System.out.println("Pilihan tidak valid.");
                         }
@@ -122,7 +122,7 @@ public class PenitipanHelm {
 
                         System.out.println("Pilih Transaksi:");
                         for (int i = 0; i < listTransaksiPenitipan.size(); i++) {
-                            if(listTransaksiPenitipan.get(i).is_done == false){
+                            if(listTransaksiPenitipan.get(i).status_selesai == false){
                                 pilihanTersedia = true;
                                 System.out.println((i + 1) + ". " + listTransaksiPenitipan.get(i).no_transaksi + " - " + listTransaksiPenitipan.get(i).nama );
                             } else{
@@ -143,7 +143,7 @@ public class PenitipanHelm {
                         int transaksiPenitipanChoice = scanner.nextInt();
                         if (transaksiPenitipanChoice > 0 && transaksiPenitipanChoice <= listTransaksiPenitipan.size()) {
                             TransaksiPenitipan selectedTransaksiPenitipan = listTransaksiPenitipan.get(transaksiPenitipanChoice - 1);
-                            loker.takeHelmet(selectedTransaksiPenitipan.no_transaksi);
+                            loker.ambilHelm(selectedTransaksiPenitipan.no_transaksi);
                             System.out.println("Tagihan");
                             System.out.println("=============================");
                             System.out.println("Nama : " + selectedTransaksiPenitipan.nama);
