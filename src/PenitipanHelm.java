@@ -143,6 +143,8 @@ public class PenitipanHelm {
 
                         if(listTransaksiPenitipanBelumSelesai.size() < 1) {
                             System.out.println("Tidak ada transaksi yang aktif");
+                            System.out.println();
+                            System.out.println();
                         }
                     } else {
                         System.out.println("Transaksi Kosong."); // Pesan jika tidak ada transaksi sama sekali dalam list
