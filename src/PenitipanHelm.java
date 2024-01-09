@@ -9,8 +9,8 @@
  */
 import java.util.List; // Mengimpor kelas List dari paket java.util agar dapat menggunakan list dalam kelas ini
 import java.util.Scanner; // Mengimpor kelas Scanner dari paket java.util agar dapat mengambil input dari user melalui console
-import java.io.Console; // Mengimpor kelas Console dari java.io agar console dapat berinteraksi dengan terminal atau konsol ketika kode sedang dijalankan 
-import java.util.ArrayList; // Mengimpor kelas ArrayList dari java.util sebagai bentuk impementasi dari List, dapat menyimpan berbagai elemen didalamnya, memudahkan proses pencarian, penambahan, dan penghapusan data-data didalamnya 
+import java.io.Console; // Mengimpor kelas Console dari java.io agar console dapat berinteraksi dengan terminal atau konsol ketika kode sedang dijalankan
+import java.util.ArrayList; // Mengimpor kelas ArrayList dari java.util sebagai bentuk impementasi dari List, dapat menyimpan berbagai elemen didalamnya, memudahkan proses pencarian, penambahan, dan penghapusan data-data didalamnya
 public class PenitipanHelm {
 
     public static void main(String[] args) {
@@ -21,7 +21,7 @@ public class PenitipanHelm {
 
         Loker loker = new Loker(); // Membuat objek loker dari kelas Loker
         Console console = System.console(); // Untuk mendapatkan objek dari kelas Console
-        
+
         if (console == null) {
             System.out.println("Console tidak tersedia!"); // Pesan jika Console tidak bekerja atau tidak tersedia
             System.exit(1); // Mengakhiri program dengan status 1 yaitu berakhir karena kesalahan atau kondisi tidak normal
@@ -29,16 +29,19 @@ public class PenitipanHelm {
 
         boolean isAuthenticated = false; // Autentifikasi di set false dari awal agar program dapat dijalankan setelah login berhasil
 
+        // Fungsi loop untuk mekakukan login, menggunakan loop agar ketika user salah menginputkan kredential maka bisa kembali menginputkan kredential
         while (!isAuthenticated) {
             System.out.println("=============================");
             System.out.println("-----------=Login=-----------");
             System.out.println("=============================");
             System.out.print("Username: ");
-            String usernameInput = scanner.nextLine();
-            String passwordInput = new String(console.readPassword("Password: "));
+            String usernameInput = scanner.nextLine(); //Input username
+            String passwordInput = new String(console.readPassword("Password: ")); //Input password
 
 
-            isAuthenticated = admin.login(usernameInput, passwordInput);
+            isAuthenticated = admin.login(usernameInput, passwordInput); //memanggil method login di kelas admin yang mana akan mengembalikan nilai true dan false
+
+            //Mengecek apakah user sudah terutentikasi, jika true maka user akan langsung masuk ke aplikasi, jika false maka user akan kembali menginputkan kredential
             if (!isAuthenticated) {
                 System.out.println("Kredential Yang Anda Masukkan Tidak Valid");
                 System.out.println();
@@ -98,7 +101,7 @@ public class PenitipanHelm {
                         System.out.println("Belum ada customer terdaftar.");
                     } else {
                         // Memasukkan nomor Transaksi dari input admin
-                        System.out.print("Nomor transaksi: "); 
+                        System.out.print("Nomor transaksi: ");
                         scanner.nextLine(); // Consume newline
                         String nomorTransaksi = scanner.nextLine();
 
@@ -151,7 +154,7 @@ public class PenitipanHelm {
                         if (transaksiPenitipanChoice > 0 && transaksiPenitipanChoice <= listTransaksiPenitipan.size()) {
                             TransaksiPenitipan selectedTransaksiPenitipan = listTransaksiPenitipan.get(transaksiPenitipanChoice - 1); // Membuat objek selectedTransaksiPenitipan dari kelas TransaksiPenitipan dengan nilai dari objek yang dipilih oleh admin
                             loker.ambilHelm(selectedTransaksiPenitipan.no_transaksi); // Menjalankan metode ambilHelm dari objek loker
-                            
+
                             // Mengeluarkan output tagihan
                             System.out.println("Tagihan");
                             System.out.println("=============================");
