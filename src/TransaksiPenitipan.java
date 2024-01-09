@@ -32,7 +32,7 @@ class TransaksiPenitipan {
         this.waktu_keluar = LocalDateTime.now();
         this.status_selesai = true; // Status transaksi penitipan menjadi true atau selesai
 
-        System.out.println("Waktu masuk : " + waktu_masuk); 
+        System.out.println("Waktu masuk : " + waktu_masuk);
         System.out.println("Waktu keluar : " + waktu_keluar);
 
         detailTransaksiPenitipan.hitungTagihan(waktu_masuk, waktu_keluar); // Menjalankan metode hitungTagihan dari kelas detailTransaksiPenitipan

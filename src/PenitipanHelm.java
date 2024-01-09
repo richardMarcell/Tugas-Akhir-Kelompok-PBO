@@ -9,6 +9,7 @@
  */
 import java.util.List; // Mengimpor kelas List dari paket java.util agar dapat menggunakan list dalam kelas ini
 import java.util.Scanner; // Mengimpor kelas Scanner dari paket java.util agar dapat mengambil input dari user melalui console
+import java.util.stream.Collectors;
 import java.io.Console; // Mengimpor kelas Console dari java.io agar console dapat berinteraksi dengan terminal atau konsol ketika kode sedang dijalankan
 import java.util.ArrayList; // Mengimpor kelas ArrayList dari java.util sebagai bentuk impementasi dari List, dapat menyimpan berbagai elemen didalamnya, memudahkan proses pencarian, penambahan, dan penghapusan data-data didalamnya
 public class PenitipanHelm {
@@ -127,28 +128,30 @@ public class PenitipanHelm {
                     break;
                 case 4: // Jika choice bernilai 4, maka akan menjalankan metode cetak tagihan
                     boolean pilihanTersedia = false;
-                    if (!listTransaksiPenitipan.isEmpty()) { // Mengecek isi dari list transaksi penitipan
 
+                    // melakuan filter terhadap list transaksi yang mana hanya mengambil data transaksi yang memilki status belum selesai atau status_selesai == false dengan function stream() dari Java List
+                    List<TransaksiPenitipan> listTransaksiPenitipanBelumSelesai = listTransaksiPenitipan.stream().filter(transaksiPenitipan -> transaksiPenitipan.status_selesai == false).collect(Collectors.toList()); // Membuat sebuah list yang berisi objek-objek TransaksiPenitipan
+                    if (!listTransaksiPenitipan.isEmpty()) { // Mengecek isi dari list transaksi penitipan
                         // Meminta admin untuk memilih transaksi penitipan aktif yang ingin di akhiri dan dilakukan pencetakan tagihan
                         System.out.println("Pilih Transaksi:");
                         for (int i = 0; i < listTransaksiPenitipan.size(); i++) { // Loop untuk menampilkan seluruh objek transaksi
+                            pilihanTersedia = true;
                             if(listTransaksiPenitipan.get(i).status_selesai == false){ // Memilih agar objek transaksi yang ditampilkan hanya yang belum selesai
-                                pilihanTersedia = true;
                                 System.out.println((i + 1) + ". " + listTransaksiPenitipan.get(i).no_transaksi + " - " + listTransaksiPenitipan.get(i).nama );
-                            } else{
-                                System.out.println("Belum ada Transaksi Aktif."); // Pesan jika tidak ada transaksi aktif
-                                System.out.println();
-                                System.out.println();
-                                break;
                             }
-
-                    }} else {
-                            System.out.println("Transaksi Kosong."); // Pesan jika tidak ada transaksi sama sekali dalam list
-                            System.out.println();
-                            System.out.println();
-                            break;
                         }
-                        if(pilihanTersedia == true){
+
+                        if(listTransaksiPenitipanBelumSelesai.size() < 1) {
+                            System.out.println("Tidak ada transaksi yang aktif");
+                        }
+                    } else {
+                        System.out.println("Transaksi Kosong."); // Pesan jika tidak ada transaksi sama sekali dalam list
+                        System.out.println();
+                        System.out.println();
+                        break;
+                    }
+
+                    if(pilihanTersedia == true) {
                         System.out.print("Pilihan Anda: ");
                         int transaksiPenitipanChoice = scanner.nextInt();
                         if (transaksiPenitipanChoice > 0 && transaksiPenitipanChoice <= listTransaksiPenitipan.size()) {
